@@ -57,4 +57,62 @@ class hashMap {
       return "not found";
     }
   }
+
+  has(key) {
+    if (this.get(key) !== "not found") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  remove(key) {
+    let idx = hashIt(key, this.buckets.length);
+    if (this.has(key)) {
+      let removeVal = this.buckets[idx].find((item) => item[0] == key);
+      let removeIdx = this.buckets[idx].indexOf(removeVal);
+      this.buckets[idx].splice(removeIdx, 1);
+    } else {
+      return false;
+    }
+  }
+
+  length() {
+    return this.size;
+  }
+
+  clear() {
+    let clearArr = new Array(this.buckets.length);
+    this.buckets = clearArr;
+  }
+
+  keys() {
+    let keysArr = [];
+    this.buckets.forEach((bucket) => {
+      if (bucket) {
+        bucket.forEach((item) => keysArr.push(item[0]));
+      }
+    });
+    return keysArr;
+  }
+
+  values() {
+    let valuesArr = [];
+    this.buckets.forEach((bucket) => {
+      if (bucket) {
+        bucket.forEach((item) => valuesArr.push(item[1]));
+      }
+    });
+    return valuesArr;
+  }
+
+  entries() {
+    let entriesArr = [];
+    this.buckets.forEach((bucket) => {
+      if (bucket) {
+        bucket.forEach((item) => entriesArr.push(item));
+      }
+    });
+    return entriesArr;
+  }
 }
